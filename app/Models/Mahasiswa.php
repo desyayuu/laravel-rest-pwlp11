@@ -23,8 +23,10 @@ class Mahasiswa extends Model
         'nim', 
         'nama',
         'kelas_id',
+        'tanggal_lahir',
         'jurusan',
         'email',
-        'no_hp',
+        'foto',
+        'no_handphone',
     ];
 }
