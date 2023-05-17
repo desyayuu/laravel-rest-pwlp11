@@ -6,6 +6,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Http\Resources\MahasiswaResource;
 use App\Http\Requests\StoreMahasiswaRequest;
+use App\Http\Requests\UpdateMahasiswaRequest;
 
 class MahasiswaController extends Controller
 {
@@ -82,9 +83,19 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
     {
-        //
+        $mahasiswa->update([
+                'nim'=>$request->nim,
+                'nama'=>$request->nama,
+                'tanggal_lahir'=>$request->tanggal_lahir,
+                'foto'=>$request->foto,
+                'jurusan'=>$request->jurusan,
+                'no_handphone'=>$request->no_handphone,
+                'kelas_id'=>$request->kelas_id,
+                'email'=>$request->email,
+        ]);
+        return new MahasiswaResource($mahasiswa);
     }
 
     /**
