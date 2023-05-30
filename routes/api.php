@@ -34,3 +34,9 @@ Route::apiResource('/mahasiswa', MahasiswaController::class);
 //PRAKTIKUM 12 
 
 Route::post('/login', [ApiAuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('/mahasiswa', MahasiswaController::class);
+    Route::get('/logout', [ApiAuthController::class, 'logout']);
+});
+
