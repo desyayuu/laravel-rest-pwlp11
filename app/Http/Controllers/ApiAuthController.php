@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\LoginResource;
+use App\Http\Requests\RegisterRequest;
+
 class ApiAuthController extends Controller
 {
     public function login(LoginRequest $request){
@@ -46,5 +48,21 @@ class ApiAuthController extends Controller
         return response()->noContent();
     }
 
+    public function register(RegisterRequest $request){
+        $user = User::create([
+            'username'=>$request->username,
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+
+        $token=$user->createToken('token')->plainTextToken;
+
+        return new LoginResource([
+            'message'=>'success login',
+            'user'=>$user,
+            'token'=>$token,
+        ],200);
+    }
 
 }
